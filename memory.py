@@ -7,6 +7,7 @@ import random
 def new_game():
     global deck, card_pos 
     deck = range(8) + range(8)
+    random.shuffle(deck)
     card_pos = [20, 50]
 
      
@@ -21,6 +22,8 @@ def draw(canvas):
     for card in deck:
         canvas.draw_text(str(card), (card_pos[0], card_pos[1]), 50, 'Red')
         card_pos[0] += 50
+    # reset horizontal position to prevent the draw handler from 
+    # drawing one deck after the other
     card_pos[0] = 25
 
 
