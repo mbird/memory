@@ -5,7 +5,9 @@ import random
 
 # helper function to initialize globals
 def new_game():
-    pass  
+    global deck, card_pos 
+    deck = range(8) + range(8)
+    card_pos = [20, 50]
 
      
 # define event handlers
@@ -16,7 +18,10 @@ def mouseclick(pos):
                         
 # cards are logically 50x100 pixels in size    
 def draw(canvas):
-    pass
+    for card in deck:
+        canvas.draw_text(str(card), (card_pos[0], card_pos[1]), 50, 'Red')
+        card_pos[0] += 50
+    card_pos[0] = 25
 
 
 # create frame and add a button and labels
