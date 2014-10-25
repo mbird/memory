@@ -28,20 +28,20 @@ def mouseclick(pos):
     if exposed[card_num] != True:
         exposed[card_num] = True
         
-    global state, card1, card2, turns
-    if state == 0:
-        state = 1
-        card1 = card_num
-    elif state == 1:
-        state = 2
-        turns += 1
-        card2 = card_num
-    else:
-        state = 1
-        if deck[card1] != deck[card2]:
-            exposed[card1] = False
-            exposed[card2] = False
-        card1 = card_num
+        global state, card1, card2, turns
+        if state == 0:
+            state = 1
+            card1 = card_num
+        elif state == 1:
+            state = 2
+            turns += 1
+            card2 = card_num
+        else:
+            state = 1
+            if deck[card1] != deck[card2]:
+                exposed[card1] = False
+                exposed[card2] = False
+            card1 = card_num
     
     
                         
