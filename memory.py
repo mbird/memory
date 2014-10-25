@@ -5,11 +5,14 @@ import random
 
 # helper function to initialize globals
 def new_game():
-    global deck, card_pos 
+    global deck, card_pos, exposed 
     deck = range(8) + range(8)
     random.shuffle(deck)
     card_pos = [5, 75]
-
+    exposed = []
+    for i in range(len(deck)):
+        exposed.append(False)
+    exposed[5] = True
      
 # define event handlers
 def mouseclick(pos):
@@ -19,9 +22,13 @@ def mouseclick(pos):
                         
 # cards are logically 50x100 pixels in size    
 def draw(canvas):
-    for card in deck:
-        canvas.draw_text(str(card), (card_pos[0], card_pos[1]), 75, 'White')
-        card_pos[0] += 50
+    for i in range(len(deck)):
+        if exposed[i] == True:
+            canvas.draw_text(str(deck[i]), (card_pos[0], card_pos[1]), 75, 'White')
+            card_pos[0] += 50
+        else:
+            canvas.draw_polygon([[0, 0], [50, 0], [50, 100], [0, 100]], 2, 'Red')
+            card_pos[0] += 50
     # reset horizontal position to prevent the draw handler from 
     # drawing one deck after the other
     card_pos[0] = 5
