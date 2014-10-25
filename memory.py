@@ -6,7 +6,7 @@ import random
 # helper function to initialize globals
 def new_game():
     global deck, card_pos, exposed, zero_pos, mouse_pos 
-    global state, card1, card2
+    global state, card1, card2, turns
     deck = range(8) + range(8)
     random.shuffle(deck)
     card_pos = [5, 75]
@@ -18,6 +18,7 @@ def new_game():
     state = 0
     card1 = 0
     card2 = 0
+    turns = 0
      
 # define event handlers
 def mouseclick(pos):
@@ -27,12 +28,13 @@ def mouseclick(pos):
     if exposed[card_num] != True:
         exposed[card_num] = True
         
-    global state, card1, card2
+    global state, card1, card2, turns
     if state == 0:
         state = 1
         card1 = card_num
     elif state == 1:
         state = 2
+        turns += 1
         card2 = card_num
     else:
         state = 1
@@ -67,12 +69,15 @@ def draw(canvas):
     zero_pos[1][0] = 50
     zero_pos[2][0] = 50
     zero_pos[3][0] = 0
-
+    
+    counter = "Turns = " + str(turns)
+    label.set_text(counter)
 
 # create frame and add a button and labels
 frame = simplegui.create_frame("Memory", 800, 100)
 frame.add_button("Reset", new_game)
 label = frame.add_label("Turns = 0")
+
 
 # register event handlers
 frame.set_mouseclick_handler(mouseclick)
