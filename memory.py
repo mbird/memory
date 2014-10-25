@@ -5,7 +5,8 @@ import random
 
 # helper function to initialize globals
 def new_game():
-    global deck, card_pos, exposed, zero_pos, mouse_pos  
+    global deck, card_pos, exposed, zero_pos, mouse_pos 
+    global state, card1, card2
     deck = range(8) + range(8)
     random.shuffle(deck)
     card_pos = [5, 75]
@@ -14,6 +15,9 @@ def new_game():
         exposed.append(False)
     zero_pos = [[0, 0], [50, 0], [50, 100], [0, 100]]
     mouse_pos = None
+    state = 0
+    card1 = 0
+    card2 = 0
      
 # define event handlers
 def mouseclick(pos):
@@ -22,6 +26,21 @@ def mouseclick(pos):
     card_num = mouse_pos[0] / 50
     if exposed[card_num] != True:
         exposed[card_num] = True
+        
+    global state, card1, card2
+    if state == 0:
+        state = 1
+        card1 = card_num
+    elif state == 1:
+        state = 2
+        card2 = card_num
+    else:
+        state = 1
+        if deck[card1] != deck[card2]:
+            exposed[card1] = False
+            exposed[card2] = False
+        card1 = card_num
+    
     
                         
 # cards are logically 50x100 pixels in size    
